@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
 import Home from "./components/Home";
-import Post from "./components/Post";
 import { Route, Switch, withRouter } from "react-router-dom";
 
 class App extends Component {
@@ -39,13 +38,14 @@ class App extends Component {
     }, 300);
   };
 
-  handleClick = (project, path) => e => {
+  handleClick = project => {
+    console.log(project);
     this.setState(
       {
         activeProject: project
       },
       () => {
-        this.handleCallback(path);
+        this.handleCallback(project.link);
       }
     );
   };
@@ -58,6 +58,7 @@ class App extends Component {
 
   render() {
     const { activeProject, boxes } = this.state;
+    console.log(activeProject);
     return (
       <div>
         <Switch>
@@ -76,7 +77,12 @@ class App extends Component {
           <Route
             path="/project/:id"
             render={props => (
-              <Post boxes={boxes} handleClick={this.handleClick} {...props} />
+              <Home
+                boxes={boxes}
+                activeProject={activeProject}
+                handleClick={() => null}
+                {...props}
+              />
             )}
           />
         </Switch>
