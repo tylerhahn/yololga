@@ -31,3 +31,38 @@
     transform: rotate(360deg);
   }
 }
+
+.flex-container {
+  display: flex;
+}
+
+.box.collapsed {
+  flex-grow: 0.000000002;
+  transition: 0.3s cubic-bezier(0.86, 0, 0.07, 1);
+}
+
+.box {
+  background-size: cover;
+  cursor: pointer;
+  text-align: center;
+  height: 500px;
+  flex-grow: 1;
+  margin: 0 auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  transition: 0.3s cubic-bezier(0.86, 0, 0.07, 1);
+}
+
+.box:hover {
+  filter: brightness(110%);
+  transition: 0.3s cubic-bezier(0.86, 0, 0.07, 1);
+}
+
+.box h2 {
+  font-size: 3em;
+  position: relative;
+  top: 50%;
+  transform: translate(-50%);
+  margin: 0 auto;
+  display: table;
+}
