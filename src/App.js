@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
-import Home from "./components/Home";
+import Gallery from "./components/Gallery";
+import _ from "lodash";
 import { Route, Switch, withRouter } from "react-router-dom";
 
 class App extends Component {
@@ -31,6 +32,25 @@ class App extends Component {
     };
   }
 
+  getSlugFromURL = slug => {
+    const index = slug.indexOf("/", 2),
+      string = slug.substring(index),
+      project = string.replace("/", ""),
+      { boxes } = this.state;
+    if (index !== -1) {
+      return _.find(boxes, { link: project });
+    } else {
+      return null;
+    }
+  };
+
+  componentDidMount() {
+    const { pathname } = this.props.location;
+    this.setState({
+      activeProject: this.getSlugFromURL(pathname)
+    });
+  }
+
   handleCallback = path => {
     const link = "/project/" + path;
     setTimeout(() => {
@@ -50,15 +70,9 @@ class App extends Component {
     );
   };
 
-  resetActiveProject() {
-    this.setState({
-      activeProject: null
-    });
-  }
-
   render() {
     const { activeProject, boxes } = this.state;
-    console.log(activeProject);
+
     return (
       <div>
         <Switch>
@@ -66,7 +80,7 @@ class App extends Component {
             exact
             path="/"
             render={props => (
-              <Home
+              <Gallery
                 boxes={boxes}
                 activeProject={activeProject}
                 handleClick={this.handleClick}
@@ -77,7 +91,7 @@ class App extends Component {
           <Route
             path="/project/:id"
             render={props => (
-              <Home
+              <Gallery
                 boxes={boxes}
                 activeProject={activeProject}
                 handleClick={() => null}

@@ -7,7 +7,14 @@ const Home = ({ handleClick, activeProject, boxes }) => {
     return map(boxes, (box, i) => {
       let collapsed =
         activeProject !== null && box.title !== activeProject.title;
-      return <Box collapsed={collapsed} handleClick={handleClick} box={box} />;
+      return (
+        <Box
+          key={i}
+          collapsed={collapsed}
+          handleClick={handleClick}
+          box={box}
+        />
+      );
     });
   };
   return (
